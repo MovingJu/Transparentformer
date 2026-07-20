@@ -5,6 +5,7 @@ description = "Transformer를 처음부터 직접 구현하며 배우는 학습 
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.26",
+    
 ]
 
 [project.optional-dependencies]
@@ -15,6 +16,9 @@ dev = [
     "pytest>=8.0",
     "matplotlib>=3.8",
     "pyright>=1.1.400",
+]
+doc = [
+    "pdoc>=16.0.0",
 ]
 
 [tool.pytest.ini_options]
