@@ -121,10 +121,18 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 pytest
+pyright   # 정적 타입 체크 (strict 모드)
 ```
 
 `tests/test_scaffold.py`가 통과하면 환경 세팅은 끝난 것 (= 이슈 #1 완료).
 C 트랙(🔧)은 컴파일러(gcc/clang)와 PyTorch 헤더가 필요 — 해당 이슈에서 안내.
+
+### 타입 체크 — pyright (strict)
+
+`pyright`를 `strict` 모드로 설정해뒀다(`pyproject.toml`의 `[tool.pyright]`). mypy도 검토했는데,
+같은 코드에 대해 pyright strict가 훨씬 더 엄격하게 잡아냄(Unknown 타입 전파, 어노테이션 누락 등
+mypy 기본/strict 모두보다 많은 에러를 검출 — 실제 비교 테스트로 확인). 새 모듈을 추가할 때마다
+`pyright`가 깨끗하게 통과하는지 확인하는 걸 습관으로.
 
 ## 왜 이 순서인가
 
