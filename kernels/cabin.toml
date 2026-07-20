@@ -1,0 +1,9 @@
+[package]
+name = "kernels"
+version = "0.1.0"
+c-standard = "c17"
+
+[target.kernels]
+type = "library"
+sources = ["src/kernels.c"]
+include-dirs = ["include"]
