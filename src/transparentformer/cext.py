@@ -13,8 +13,9 @@ import subprocess
 import sys
 from functools import lru_cache
 from pathlib import Path
+from types import ModuleType
 
-from torch.utils.cpp_extension import load
+from torch.utils.cpp_extension import load  # pyright: ignore[reportUnknownVariableType] -- torch 자체 타입 스텁이 불완전
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 KERNELS_DIR = REPO_ROOT / "kernels"
@@ -33,15 +34,20 @@ def _find_static_lib() -> Path:
 
 
 @lru_cache(maxsize=1)
-def load_kernels():
+def load_kernels() -> ModuleType:
     """kernels/를 cabin으로 빌드하고, C 트랙 파이썬 확장 모듈을 로드해서 리턴한다."""
     subprocess.run(["cabin", "build"], cwd=KERNELS_DIR, check=True)
     lib_path = _find_static_lib()
 
-    return load(
+    # torch.utils.cpp_extension.load()는 `ModuleType | str`을 리턴하도록 타입이 잡혀있는데,
+    # str이 되는 건 is_standalone=True(실행파일 빌드) 때뿐 — 여긴 기본값(False)만 쓰므로
+    # 항상 ModuleType이 나온다는 걸 알고 있어서 assert로 pyright에 알려줌.
+    result = load(
         name="transparentformer_kernels",
         sources=[str(BINDING_SRC)],
         extra_include_paths=[str(KERNELS_DIR / "include")],
         extra_ldflags=[str(lib_path)],
         verbose="-v" in sys.argv,
     )
+    assert isinstance(result, ModuleType)
+    return result
