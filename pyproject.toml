@@ -12,10 +12,16 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "matplotlib>=3.8",
+    "pyright>=1.1.400",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.pyright]
+include = ["src", "tests"]
+typeCheckingMode = "strict"
+pythonVersion = "3.10"
 
 [build-system]
 requires = ["setuptools>=68"]
