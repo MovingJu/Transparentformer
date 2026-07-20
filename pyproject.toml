@@ -11,6 +11,7 @@ dependencies = [
 cpu = ["torch>=2.2"]
 cu124 = ["torch>=2.2"]
 dev = [
+    "ruff>=0.15.22",
     "pytest>=8.0",
     "matplotlib>=3.8",
     "pyright>=1.1.400",

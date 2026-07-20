@@ -3,6 +3,7 @@
 import torch
 from transparentformer.cext import load_kernels
 
+
 def test_softmax():
     k = load_kernels()
     a = torch.rand(2, 3, dtype=torch.float32)
