@@ -17,30 +17,29 @@ extern "C" {
 #endif
 
 // out(m x p) = a(m x k) @ b(k x p), 전부 row-major, contiguous
-void matmul_forward(const float* a, const float* b, float* out, long m, long k, long p);
+void matmul_forward(const float *a, const float *b, float *out, long m, long k, long p);
 
 // x, out: (rows x cols), 마지막 축(cols) 기준 softmax, max-subtract 수치안정성 포함
-void softmax_forward(const float* x, float* out, long rows, long cols);
+void softmax_forward(const float *x, float *out, long rows, long cols);
 
 // scaled dot-product attention forward. q,k: (t x d_k), v: (t x d_v), out: (t x d_v)
-void sdpa_forward(const float* q, const float* k, const float* v, float* out,
-                   long t, long d_k, long d_v, float scale);
+void sdpa_forward(const float *q, const float *k, const float *v, float *out, long t, long d_k,
+                  long d_v, float scale);
 
 // sdpa backward: grad_out(t x d_v) -> grad_q, grad_k, grad_v
-void sdpa_backward(const float* q, const float* k, const float* v,
-                    const float* grad_out, float* grad_q, float* grad_k, float* grad_v,
-                    long t, long d_k, long d_v, float scale);
+void sdpa_backward(const float *q, const float *k, const float *v, const float *grad_out,
+                   float *grad_q, float *grad_k, float *grad_v, long t, long d_k, long d_v,
+                   float scale);
 
 // layernorm forward: x(rows x cols) -> out, mean/rstd는 backward에서 재사용하도록 저장
-void layernorm_forward(const float* x, const float* gamma, const float* beta, float* out,
-                        float* mean, float* rstd, long rows, long cols, float eps);
+void layernorm_forward(const float *x, const float *gamma, const float *beta, float *out,
+                       float *mean, float *rstd, long rows, long cols, float eps);
 
 // layernorm backward: grad_out -> grad_x, grad_gamma, grad_beta
-void layernorm_backward(const float* x, const float* gamma, const float* grad_out,
-                         const float* mean, const float* rstd,
-                         float* grad_x, float* grad_gamma, float* grad_beta,
-                         long rows, long cols);
+void layernorm_backward(const float *x, const float *gamma, const float *grad_out,
+                        const float *mean, const float *rstd, float *grad_x, float *grad_gamma,
+                        float *grad_beta, long rows, long cols);
 
 #ifdef __cplusplus
-}  // extern "C"
+} // extern "C"
 #endif
