@@ -4,12 +4,14 @@ version = "0.1.0"
 description = "Transformer를 처음부터 직접 구현하며 배우는 학습 레포"
 requires-python = ">=3.10"
 dependencies = [
-    "torch>=2.2",
     "numpy>=1.26",
 ]
 
 [project.optional-dependencies]
+cpu = ["torch>=2.2"]
+cu124 = ["torch>=2.2"]
 dev = [
+    "ruff>=0.15.22",
     "pytest>=8.0",
     "matplotlib>=3.8",
     "pyright>=1.1.400",
@@ -22,6 +24,30 @@ testpaths = ["tests"]
 include = ["src", "tests"]
 typeCheckingMode = "strict"
 pythonVersion = "3.10"
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "cu124" },
+    ],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu124", extra = "cu124" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
 
 [build-system]
 requires = ["setuptools>=68"]

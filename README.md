@@ -141,9 +141,8 @@ Attention을 감싸는 나머지 부품을 붙여 encoder/decoder 완성. LayerN
 ## 개발 환경
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv sync --extra cpu,dev   # for general environments or mps(mac).
+uv sync --extra cu124,dev # for CUDA environments.
 pytest
 pyright   # 정적 타입 체크 (strict 모드)
 ```
