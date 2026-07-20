@@ -141,8 +141,8 @@ Attention을 감싸는 나머지 부품을 붙여 encoder/decoder 완성. LayerN
 ## 개발 환경
 
 ```bash
-uv sync --extra cpu --extra dev   # for general environments.
-uv sync --extra cu124 --extra dev # for CUDA environments.
+uv sync --extra cpu,dev   # for general environments or mps(mac).
+uv sync --extra cu124,dev # for CUDA environments.
 pytest
 pyright   # 정적 타입 체크 (strict 모드)
 ```
