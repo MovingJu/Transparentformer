@@ -1,15 +1,20 @@
 #pragma once
 
-// C 트랙 커널 선언들. extern "C"로 내보내서 이름 맹글링 없이
-// csrc/binding.cpp(얇은 pybind11 glue)에서 그대로 링크해 쓴다.
+// C 트랙 커널 선언들. 정의는 순수 C 파일(src/kernels.c)에 있음 — 이 헤더는 C에서도, C++
+// (csrc/binding.cpp)에서도 그대로 include할 수 있어야 해서 `extern "C"`를 __cplusplus로 감싼다.
+// (`extern "C"` 자체는 C 문법이 아니라서, 이 가드 없이 .c 파일에서 이 헤더를 include하면
+// 컴파일 에러가 난다.)
 //
-// 각 함수의 실제 구현은 src/kernels.cc에 있고, 해당 이슈에서 채워 넣으면 된다:
+// 각 함수의 실제 구현은 src/kernels.c에 있고, 해당 이슈에서 채워 넣으면 된다:
 //   matmul_forward   -> 이슈 #3
 //   softmax_forward  -> 이슈 #6
 //   sdpa_forward     -> 이슈 #8
 //   layernorm_forward / layernorm_backward -> 이슈 #12
 //   sdpa_backward    -> 이슈 #20
+
+#ifdef __cplusplus
 extern "C" {
+#endif
 
 // out(m x p) = a(m x k) @ b(k x p), 전부 row-major, contiguous
 void matmul_forward(const float* a, const float* b, float* out, long m, long k, long p);
@@ -36,4 +41,6 @@ void layernorm_backward(const float* x, const float* gamma, const float* grad_ou
                          float* grad_x, float* grad_gamma, float* grad_beta,
                          long rows, long cols);
 
+#ifdef __cplusplus
 }  // extern "C"
+#endif

@@ -5,7 +5,7 @@
 // C++ 없이 못 짠다. 하지만 실제 커널 로직은 순수 C/C 스타일로 kernels/에 두고, cabin으로
 // 독립적으로 빌드·테스트·포맷팅한다(사용자가 cpp보다 이쪽 워크플로우를 선호해서 채택).
 #include <torch/extension.h>
-#include "kernels/kernels.hpp"
+#include "kernels/kernels.h"
 
 namespace {
 
