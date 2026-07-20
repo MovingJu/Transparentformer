@@ -1,0 +1,9 @@
+[package]
+name = "kernels"
+version = "0.1.0"
+cxx-standard = "c++17"
+
+[target.kernels]
+type = "library"
+sources = ["src/kernels.cc"]
+include-dirs = ["include"]
