@@ -1,16 +1,25 @@
 #include <string.h>
 #include "../include/kernels/kernels.h"
 
-// 아래는 전부 스텁(0으로 채우기)이다. 해당 이슈에서 진짜 구현으로 바꾸면 됨.
-// 스텁 상태로도 컴파일은 되게 해둬서, 다른 이슈를 먼저 진행해도 빌드가 깨지지 않는다.
-
+float *matrix_index_mut(float *mat, const long mat_col, long row, long col)
+{
+    return &mat[row * mat_col + col];
+}
+const float *matrix_index(const float *mat, const long mat_col, long row, long col)
+{
+    return &mat[row * mat_col + col];
+}
 void matmul_forward(const float *a, const float *b, float *out, long m, long k, long p)
 {
-    // TODO(#3): 3중 루프로 실제 matmul 구현
-    (void)a;
-    (void)b;
-    (void)k;
-    memset(out, 0, sizeof(float) * m * p);
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < p; ++j) {
+            float cell = 0;
+            for (int l = 0; l < k; ++l) {
+                cell += *matrix_index(a, k, i, l) * *matrix_index(b, p, l, j);
+            }
+            *matrix_index_mut(out, p, i, j) = cell;
+        }
+    }
 }
 
 void softmax_forward(const float *x, float *out, long rows, long cols)
