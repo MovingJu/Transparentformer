@@ -1,4 +1,5 @@
-import torch, pytest
+import torch
+import pytest
 from types import ModuleType
 from transparentformer.cext import load_kernels
 from benchmark_fixture import BenchmarkFixture

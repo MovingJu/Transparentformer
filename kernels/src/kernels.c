@@ -1,11 +1,11 @@
 #include <string.h>
 #include "../include/kernels/kernels.h"
 
-float *matrix_index_mut(float *mat, const long mat_col, long row, long col)
+static inline float *matrix_index_mut(float *mat, const long mat_col, long row, long col)
 {
     return &mat[row * mat_col + col];
 }
-const float *matrix_index(const float *mat, const long mat_col, long row, long col)
+static inline const float *matrix_index(const float *mat, const long mat_col, long row, long col)
 {
     return &mat[row * mat_col + col];
 }
