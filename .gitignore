@@ -11,3 +11,4 @@ runs/
 *.pt
 *.pth
 .ruff_cache/
+.benchmarks
