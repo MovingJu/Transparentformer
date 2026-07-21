@@ -38,7 +38,7 @@ def load_kernels() -> ModuleType:
     """kernels/를 cabin으로 빌드하고, C 트랙 파이썬 확장 모듈을 로드해서 리턴한다.
     C의 라이브러리들을 매서드 형태로 사용해서 state 패턴과 유사하다.
     """
-    subprocess.run(["cabin", "build"], cwd=KERNELS_DIR, check=True)
+    subprocess.run(["cabin", "build", "--release"], cwd=KERNELS_DIR, check=True)
     lib_path = _find_static_lib()
 
     # torch.utils.cpp_extension.load()는 `ModuleType | str`을 리턴하도록 타입이 잡혀있는데,
