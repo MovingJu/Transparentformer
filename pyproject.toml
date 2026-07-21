@@ -5,7 +5,6 @@ description = "Transformer를 처음부터 직접 구현하며 배우는 학습 
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.26",
-    
 ]
 
 [project.optional-dependencies]
