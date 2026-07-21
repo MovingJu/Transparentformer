@@ -1,4 +1,4 @@
-"""Tests for transparentformer."""
+"""Tests for transparentformer.warmup module"""
 
 import torch
 import transparentformer
