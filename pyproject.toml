@@ -2,7 +2,7 @@
 name = "transparentformer"
 version = "0.1.0"
 description = "Transformer를 처음부터 직접 구현하며 배우는 학습 레포"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "numpy>=1.26",
 ]
@@ -19,6 +19,9 @@ dev = [
 doc = [
     "pdoc>=16.0.0",
 ]
+bench = [
+    "pytest-benchmark>=5.2.3",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -26,7 +29,6 @@ testpaths = ["tests"]
 [tool.pyright]
 include = ["src", "tests"]
 typeCheckingMode = "strict"
-pythonVersion = "3.10"
 
 [tool.uv]
 conflicts = [
