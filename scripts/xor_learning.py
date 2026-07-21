@@ -91,10 +91,11 @@ def main():
 
     fig, ax = plt.subplots()
     # section: evaluating
-    ax.plot([i for i in range(epochs)], loss_log_nonlin) # pyright: ignore
-    ax.plot([i for i in range(epochs)], loss_log_lin) # pyright: ignore
+    ax.plot([i for i in range(epochs)], loss_log_nonlin, label="Non-linear") # pyright: ignore
+    ax.plot([i for i in range(epochs)], loss_log_lin, label="Linear") # pyright: ignore
     ax.set_xlabel("epochs") # pyright: ignore
     ax.set_ylabel("loss") # pyright: ignore
+    ax.legend() # pyright: ignore
     fig.savefig(OUTPUT_DIR / "xor_log.png")  # pyright: ignore
     plt.close(fig)
 

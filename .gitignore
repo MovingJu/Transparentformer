@@ -12,4 +12,5 @@ runs/
 *.pth
 .ruff_cache/
 .benchmarks
-script/outputs/
+scripts/outputs/
+.DS_Store
