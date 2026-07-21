@@ -35,7 +35,9 @@ def _find_static_lib() -> Path:
 
 @lru_cache(maxsize=1)
 def load_kernels() -> ModuleType:
-    """kernels/를 cabin으로 빌드하고, C 트랙 파이썬 확장 모듈을 로드해서 리턴한다."""
+    """kernels/를 cabin으로 빌드하고, C 트랙 파이썬 확장 모듈을 로드해서 리턴한다.
+    C의 라이브러리들을 매서드 형태로 사용해서 state 패턴과 유사하다.
+    """
     subprocess.run(["cabin", "build"], cwd=KERNELS_DIR, check=True)
     lib_path = _find_static_lib()
 
